@@ -104,3 +104,4 @@ y_{13} + y_{23} + y_{33} + y_{43} + y_{53} \leq 350x_3 & \quad\text{(capacidade 
 y_{14} + y_{24} + y_{34} + y_{44} + y_{54} \leq 450x_4 & \quad\text{(capacidade do armazém 4)} \\
 y_{15} + y_{25} + y_{35} + y_{45} + y_{55} \leq 400x_5 & \quad\text{(capacidade do armazém 5)}
 \end{align*}
+$$
