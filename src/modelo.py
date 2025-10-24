@@ -55,13 +55,16 @@ print("\nX[j]:")
 print(X_series)
 
 # Verificar demanda de cada cidade
+print('\n')
 for i in model.I:
     total_recebido = sum(model.Y[i,j].value for j in model.J)
-    print(f"""\nCidade {i}: total recebido = {total_recebido:.2f},
-          demanda = {model.demanda[i]}""")
+    print(f'Cidade {i}: total recebido = {total_recebido:.2f}, demanda = {model.demanda[i]}')
 
 # Verificar capacidade de cada armazém
+print('\n')
 for j in model.J:
     total_enviado = sum(model.Y[i,j].value for i in model.I)
-    print(f"""\nArmazém {j}: total enviado = {total_enviado:.2f},
-          capacidade = {model.capacidades[j]}""")
+    print(f'Armazém {j}: total enviado = {total_enviado:.2f}, capacidade = {model.capacidades[j]}')
+
+# Melhor solucão encontrada
+print(f'\nMelhor solução: R$ {pyo.value(model.obj) / 1000} milhões')
