@@ -78,11 +78,14 @@ A figura acima apresenta as localidades escolhidas como possíveis armazéns, ju
 A CEARS está interessada em encontrar as três localidades para construir seus armazéns de modo que o custo total de construção e logístico seja o mínimo. Considere a variável $x_j$ a presença do armazém na localidade $j$. Mais especificamente,
 
 $$
-\begin{equation*}x_j = \left\{\begin{matrix}
-1 \\0
-\end{matrix}\right.\quad\left(j=1, 2, 3, 4, 5\right)
-\end{equation*}
+x_j =
+\begin{cases}
+1, & \text{se o armazém é construído na localidade } j \\
+0, & \text{caso contrário}
+\end{cases}
+\quad (j = 1, 2, 3, 4, 5)
 $$
+
 Vamos levar em conta os dois custos: de construção do armazém e de logística. Como o armazém $j$ pode encaminhar seus produtos para qualquer um dos clientes $i$, chamaremos $y_{ij}$ de quantidade de produtos enviadas de $j$ para $i$. Levando essas considerações em conta, podemos dizer que a função-objetivo é definida como
 
 $$
