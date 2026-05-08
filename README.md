@@ -118,9 +118,59 @@ y_{51} + y_{52} + y_{53} + y_{54} + y_{55} = 500 & \quad\text{(demanda de Porto 
 \end{align*}
 $$
 
-O terceiro grupo de restrições estabelece que apenas três armazéns serão abertos, ou seja, $x_1$ + $x_2$ + $x_3$ + $x_4$ + $x_5$ = 3. O último grupo de restrições estabelece que os $x_j$ são binários, isto é, $x_j \in \left\{0, 1\right\} \left(j=1, 2, 3, 4, 5\right)$, e que os $y_{ij}$ são variáveis não negativas, $y_ij\geq 0 \left(i=1, 2, 3, 4, 5; j=1, 2, 3, 4, 5\right)$.
+O terceiro grupo de restrições estabelece que apenas três armazéns serão abertos, ou seja, $x_1$ + $x_2$ + $x_3$ + $x_4$ + $x_5$ = 3. O último grupo de restrições estabelece que os $x_j$ são binários, isto é, $x_j \in \{0, 1\} \left(j=1, 2, 3, 4, 5\right)$, e que os $y_{ij}$ são variáveis não negativas, $y_{ij}\geq 0 \left(i=1, 2, 3, 4, 5; j=1, 2, 3, 4, 5\right)$.
 <br>
 <br> 
+
+## Solução obtida
+
+O modelo foi implementado em Python com Pyomo e resolvido com o solver GLPK,
+por meio do executável `solver/glpsol.exe`. A solução ótima encontrada abre
+os armazéns de **Alegrete**, **Caçapava do Sul** e **Santa Rosa**, mantendo
+fechadas as alternativas de **Tupanciretã** e **Vacaria**.
+
+| Localidade candidata | Valor de $x_j$ | Decisão |
+| --- | ---: | --- |
+| Alegrete | 1 | Abrir |
+| Caçapava do Sul | 1 | Abrir |
+| Tupanciretã | 0 | Não abrir |
+| Vacaria | 0 | Não abrir |
+| Santa Rosa | 1 | Abrir |
+
+Com essa escolha, a matriz de distribuição ótima, em kton, é:
+
+| Armazém / Destino | Uruguaiana | Pelotas | Caxias do Sul | Passo Fundo | Porto Alegre |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Alegrete | 150 | 200 | 150 | 0 | 0 |
+| Caçapava do Sul | 0 | 250 | 0 | 0 | 500 |
+| Tupanciretã | 0 | 0 | 0 | 0 | 0 |
+| Vacaria | 0 | 0 | 0 | 0 | 0 |
+| Santa Rosa | 0 | 0 | 150 | 250 | 0 |
+
+Essa distribuição atende integralmente às demandas anuais:
+
+| Destino | Demanda | Total recebido |
+| --- | ---: | ---: |
+| Uruguaiana | 150 | 150 |
+| Pelotas | 450 | 450 |
+| Caxias do Sul | 300 | 300 |
+| Passo Fundo | 250 | 250 |
+| Porto Alegre | 500 | 500 |
+
+Também respeita as capacidades dos armazéns selecionados:
+
+| Armazém | Capacidade | Total enviado |
+| --- | ---: | ---: |
+| Alegrete | 600 | 500 |
+| Caçapava do Sul | 750 | 750 |
+| Tupanciretã | 350 | 0 |
+| Vacaria | 450 | 0 |
+| Santa Rosa | 400 | 400 |
+
+O custo total mínimo é de **R$ 23,08 milhões**. Esse valor combina os custos
+fixos de construção dos três armazéns abertos com os custos logísticos de
+envio entre armazéns e destinos. Portanto, dentro das restrições impostas, não
+há outra combinação de três armazéns e fluxos de atendimento com custo menor.
   
 ## Referências
 COLIN, Emerson Carlos. Pesquisa operacional: 170 aplicações em estratégia, finanças, logística, produção, marketing e vendas. Rio de Janeiro: LTC, 2007. p. 181-182.

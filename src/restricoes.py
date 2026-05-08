@@ -1,13 +1,17 @@
-from utils import *
-
-def restricao_capacidade(model, j):
-    return  sum(model.Y[i,j] for i in model.I) <= model.capacidades[j]
+"""Regras de restrição do modelo de localização de armazéns."""
 
 
-def restricao_demanda(model, i):
-    return sum(model.Y[i,j] for j in model.J) == model.demanda[i]
+def restricao_capacidade(model, armazem):
+    """Limita o volume enviado à capacidade do armazém aberto."""
+    return (
+        sum(model.Y[destino, armazem] for destino in model.I)
+        <= model.capacidades[armazem] * model.X[armazem]
+    )
 
 
-def ativacao_deposito(model, i, j):
-    M = max(capacidades.values())
-    return model.Y[i,j] <= M * model.X[j]
+def restricao_demanda(model, destino):
+    """Garante que a demanda de cada destino seja atendida integralmente."""
+    return (
+        sum(model.Y[destino, armazem] for armazem in model.J)
+        == model.demanda[destino]
+    )
